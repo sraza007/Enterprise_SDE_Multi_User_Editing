@@ -5,10 +5,9 @@ This guide provides a complete workflow for managing an ESRI Enterprise SDE (Pos
 ArcGIS Enterprise Geodatabase (PostgreSQL) User & Tracking Setup
 This repository contains the standardized workflow for creating users, managing permissions, and enabling editor tracking for non-versioned editing in a PostgreSQL SDE environment.
 
-1. PostgreSQL User & Permissions Setup
+# 1. PostgreSQL User & Permissions Setup
 Run these commands as a Superuser (e.g., postgres) to create the user, the group, and set "set-and-forget" permissions.
 
-SQL
 -- ===========================================================================
 -- STEP 1: CREATE GROUP AND USER
 -- ===========================================================================
@@ -44,7 +43,9 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO gis_internal;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA sde 
 GRANT USAGE, SELECT ON SEQUENCES TO gis_internal;
-2. Troubleshooting: "Geodatabase is not accepting connections"
+
+
+# 2. Troubleshooting: "Geodatabase is not accepting connections"
 If a standard user gets this error but the admin can connect, the Geodatabase is "locked."
 
 Resolution Steps:
@@ -61,7 +62,7 @@ Ensure the box "Geodatabase is accepting connections" is checked.
 
 Click OK.
 
-3. Editor Tracking Configuration (Non-Versioned)
+# 3. Editor Tracking Configuration (Non-Versioned)
 To track edits without using versioning, tracking must be enabled on each feature class.
 
 How to Enable
@@ -84,11 +85,11 @@ No Versioning Required: Users edit the "Base" table directly.
 
 Automatic Logging: ArcGIS Pro captures the credentials from the .sde connection file and writes them to the last_edited_user field automatically upon saving.
 
-4. Maintenance: Adding New Users
+# 4. Maintenance: Adding New Users
 To add a new team member in the future, you only need to run these three lines:
 
-SQL
 CREATE ROLE [username] WITH LOGIN PASSWORD '[password]' INHERIT;
 GRANT gis_internal TO [username];
 GRANT CONNECT ON DATABASE production TO [username];
+
 Note: Because of the Default Privileges set in Phase 1, the new user will immediately have access to all tables without further SQL configuration.
