@@ -13,12 +13,15 @@ Run these commands as a Superuser (e.g., postgres) to create the user, the group
 -- ===========================================================================
 
 -- Create the Group Role (Permissions are managed here)
+
 CREATE ROLE gis_internal WITH NOLOGIN NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
 
 -- Create the Individual User 'sraza'
+
 CREATE ROLE sraza WITH LOGIN PASSWORD 'razagis' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
 
 -- Add the user to the group
+
 GRANT gis_internal TO sraza;
 
 -- ===========================================================================
@@ -26,10 +29,12 @@ GRANT gis_internal TO sraza;
 -- ===========================================================================
 
 -- Grant Database & Schema Access (Replace 'production' with your DB name)
+
 GRANT CONNECT ON DATABASE production TO gis_internal;
 GRANT USAGE ON SCHEMA sde TO gis_internal;
 
 -- Grant Permissions on ALL CURRENT tables & sequences in 'sde' schema
+
 GRANT SELECT, INSERT, UPDATE, DELETE ON ALL TABLES IN SCHEMA sde TO gis_internal;
 GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA sde TO gis_internal;
 
@@ -38,6 +43,7 @@ GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA sde TO gis_internal;
 -- ===========================================================================
 
 -- Ensures NEW tables created by the owner are automatically accessible to the group
+
 ALTER DEFAULT PRIVILEGES IN SCHEMA sde 
 GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO gis_internal;
 
