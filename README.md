@@ -32,7 +32,7 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO gis_internal;
 ALTER DEFAULT PRIVILEGES IN SCHEMA sde 
 GRANT USAGE, SELECT ON SEQUENCES TO gis_internal;e access to all tables without further SQL configuration.
 
-
+## 🛠 1. One-Time Foundation Setup
 # 2. Recurring Task: Adding a New User
 Run these commands EVERY TIME you hire a new editor. They will automatically inherit all table permissions from gis_internal.
 
