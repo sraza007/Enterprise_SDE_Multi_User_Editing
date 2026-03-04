@@ -31,11 +31,11 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON TABLES TO gis_internal;
 
 ALTER DEFAULT PRIVILEGES IN SCHEMA sde 
 GRANT USAGE, SELECT ON SEQUENCES TO gis_internal;e access to all tables without further SQL configuration.
+```
 
-## 🛠 1. One-Time Foundation Setup
-# 2. Recurring Task: Adding a New User
-Run these commands EVERY TIME you hire a new editor. They will automatically inherit all table permissions from gis_internal.
-
+## 🛠 2. Recurring Task: Adding a New User
+** Run these commands EVERY TIME you hire a new editor. They will automatically inherit all table permissions from gis_internal.
+```sql
 -- 1. Create the individual account
 CREATE ROLE sraza WITH LOGIN PASSWORD 'razagis' NOSUPERUSER INHERIT NOCREATEDB NOCREATEROLE NOREPLICATION;
 
@@ -44,7 +44,7 @@ GRANT gis_internal TO sraza;
 
 -- 3. Explicitly allow database connection
 GRANT CONNECT ON DATABASE production TO sraza;
-
+```
 
 # 3. Troubleshooting: Geodatabase Connections
 If a user sees the error: "The geodatabase is not accepting connections", follow these steps:
